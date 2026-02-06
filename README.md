@@ -32,11 +32,26 @@ The server uses:
 
 ### Step 1: Install this package
 
+We recommend using [uv](https://github.com/astral-sh/uv) for fast package management:
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/fl-studio-mcp.git
 cd fl-studio-mcp
 
+# Install with uv (recommended - 10-100x faster than pip!)
+uv sync
+
+# Or install with Flapi support
+uv sync --extra flapi
+
+# Or install with all optional dependencies
+uv sync --all-extras
+```
+
+**If you prefer pip:**
+
+```bash
 # Install with basic dependencies
 pip install -e .
 
@@ -50,6 +65,12 @@ pip install -e ".[flapi,pyflp,dev]"
 ### Step 2: Install and Configure Flapi
 
 ```bash
+# Install Flapi (with uv)
+uv pip install flapi
+
+# Or with pip
+pip install flapi
+
 # Run the Flapi installer
 flapi install
 
@@ -88,6 +109,10 @@ MCP_LOG_LEVEL="INFO"
 ### Starting the Server
 
 ```bash
+# With uv (recommended)
+uv run python -m fl_studio_mcp.fl_studio_server
+
+# Or directly with python
 python -m fl_studio_mcp.fl_studio_server
 ```
 
@@ -169,12 +194,21 @@ fl-studio-mcp/
 ### Running Tests
 
 ```bash
+# With uv (recommended)
+uv run pytest
+
+# Or directly
 pytest
 ```
 
 ### Code Formatting
 
 ```bash
+# With uv
+uv run black fl_studio_mcp/
+uv run ruff check fl_studio_mcp/
+
+# Or directly
 black fl_studio_mcp/
 ruff check fl_studio_mcp/
 ```

@@ -115,9 +115,23 @@ fl-studio-mcp/
 ### Immediate (To Start Using It)
 
 1. **Install Dependencies**
-   ```bash
-   pip install fastmcp pydantic python-dotenv flapi
-   ```
+
+**Using uv (recommended - 10-100x faster!):**
+```bash
+# Install uv if needed
+pip install uv
+
+# Install project dependencies
+uv sync --extra flapi
+
+# Install Flapi
+uv pip install flapi
+```
+
+**Or using pip:**
+```bash
+pip install fastmcp pydantic python-dotenv flapi
+```
 
 2. **Install Flapi**
    ```bash
@@ -134,11 +148,21 @@ fl-studio-mcp/
    - Link the Flapi script to the MIDI ports
 
 5. **Test Connection**
+   **With uv:**
+   ```bash
+   uv run python scripts/test_connection.py
+   ```
+   **Or directly:**
    ```bash
    python scripts/test_connection.py
    ```
 
 6. **Start the Server**
+   **With uv:**
+   ```bash
+   uv run python -m fl_studio_mcp.fl_studio_server
+   ```
+   **Or directly:**
    ```bash
    python -m fl_studio_mcp.fl_studio_server
    ```

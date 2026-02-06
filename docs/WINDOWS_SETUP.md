@@ -19,6 +19,27 @@ This guide will walk you through setting up the FL Studio MCP server on Windows.
 
 Open **Command Prompt** or **PowerShell**:
 
+**Using uv (recommended - 10-100x faster!):**
+
+```bash
+# Navigate to your project directory
+cd C:\Users\YourName\Projects\fl-studio-mcp
+
+# Install uv if you haven't already
+pip install uv
+
+# Install project dependencies
+uv sync --extra flapi
+
+# Install Flapi
+uv pip install flapi
+
+# Verify installation
+uv pip list | findstr /I "fastmcp flapi pydantic"
+```
+
+**Or using pip:**
+
 ```bash
 # Navigate to your project directory
 cd C:\Users\YourName\Projects\fl-studio-mcp
@@ -27,7 +48,7 @@ cd C:\Users\YourName\Projects\fl-studio-mcp
 pip install fastmcp pydantic python-dotenv flapi
 
 # Verify installation
-pip list | grep -E "fastmcp|flapi|pydantic"
+pip list | findstr /I "fastmcp flapi pydantic"
 ```
 
 ---
@@ -149,6 +170,12 @@ FL_AUTO_CONNECT="false"
 
 ### Run the Test Script
 
+**With uv (recommended):**
+```bash
+uv run python scripts\test_connection.py
+```
+
+**Or directly:**
 ```bash
 python scripts\test_connection.py
 ```
@@ -204,6 +231,12 @@ All tests completed!
 ### Troubleshooting Common Issues
 
 #### "Flapi not available"
+**With uv:**
+```bash
+uv pip install flapi
+```
+
+**Or with pip:**
 ```bash
 pip install flapi
 ```
@@ -225,6 +258,12 @@ pip install flapi
 
 ### Manual Start
 
+**With uv (recommended):**
+```bash
+uv run python -m fl_studio_mcp.fl_studio_server
+```
+
+**Or directly:**
 ```bash
 python -m fl_studio_mcp.fl_studio_server
 ```
@@ -250,6 +289,26 @@ If using Claude Desktop:
 2. Click **Settings** (gear icon)
 3. Go to **MCP Servers**
 4. Add a new server:
+
+**With uv (recommended):**
+
+```json
+{
+  "mcpServers": {
+    "fl-studio": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "fl_studio_mcp.fl_studio_server"],
+      "cwd": "C:\\Users\\YourName\\Projects\\fl-studio-mcp",
+      "env": {
+        "FLAPI_REQUEST_PORT": "Flapi Request",
+        "FLAPI_RESPONSE_PORT": "Flapi Response"
+      }
+    }
+  }
+}
+```
+
+**Or without uv:**
 
 ```json
 {
@@ -325,6 +384,17 @@ If you installed it elsewhere, update the `.env` file.
 ### Issue: "pip not recognized"
 
 **Solution:**
+
+**With uv (recommended):**
+```bash
+# Install uv first
+python -m pip install uv
+
+# Then use uv
+uv sync --extra flapi
+```
+
+**Or with pip:**
 ```bash
 python -m pip install fastmcp pydantic python-dotenv flapi
 ```

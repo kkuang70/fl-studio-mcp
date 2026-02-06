@@ -42,9 +42,9 @@ def test_connection():
     print("Test 1: Checking Flapi availability...")
     try:
         bridge._ensure_flapi()
-        print("✓ Flapi is available")
+        print("[OK] Flapi is available")
     except Exception as e:
-        print(f"✗ Flapi not available: {e}")
+        print(f"[FAIL] Flapi not available: {e}")
         print()
         print("Please install Flapi: pip install flapi")
         return False
@@ -56,12 +56,12 @@ def test_connection():
     try:
         success = connection_manager.connect()
         if success:
-            print("✓ Connected to FL Studio successfully")
+            print("[OK] Connected to FL Studio successfully")
         else:
-            print("✗ Failed to connect to FL Studio")
+            print("[FAIL] Failed to connect to FL Studio")
             return False
     except Exception as e:
-        print(f"✗ Connection error: {e}")
+        print(f"[FAIL] Connection error: {e}")
         print()
         print("Troubleshooting:")
         print("1. Make sure FL Studio is running")
@@ -74,9 +74,9 @@ def test_connection():
     print("Test 3: Getting connection status...")
     try:
         status = connection_manager.get_connection_status()
-        print(f"✓ Connection status: {status}")
+        print(f"[OK] Connection status: {status}")
     except Exception as e:
-        print(f"✗ Error getting status: {e}")
+        print(f"[FAIL] Error getting status: {e}")
     print()
 
     # Test 4: Get project info
@@ -86,48 +86,48 @@ def test_connection():
         channel_count = channel_api.get_count()
         mixer_count = mixer_api.get_track_count()
 
-        print(f"✓ Tempo: {tempo} BPM")
-        print(f"✓ Channels: {channel_count}")
-        print(f"✓ Mixer tracks: {mixer_count}")
+        print(f"[OK] Tempo: {tempo} BPM")
+        print(f"[OK] Channels: {channel_count}")
+        print(f"[OK] Mixer tracks: {mixer_count}")
     except Exception as e:
-        print(f"✗ Error getting project info: {e}")
+        print(f"[FAIL] Error getting project info: {e}")
     print()
 
     # Test 5: Get channels
     print("Test 5: Getting channel information...")
     try:
         channels = channel_api.get_all()
-        print(f"✓ Found {len(channels)} channels:")
+        print(f"[OK] Found {len(channels)} channels:")
         for channel in channels[:5]:  # Show first 5
             print(f"  - {channel['name']} (ID: {channel['id']})")
         if len(channels) > 5:
             print(f"  ... and {len(channels) - 5} more")
     except Exception as e:
-        print(f"✗ Error getting channels: {e}")
+        print(f"[FAIL] Error getting channels: {e}")
     print()
 
     # Test 6: Get transport status
     print("Test 6: Getting transport status...")
     try:
         status = transport_api.get_status()
-        print(f"✓ Playing: {status['playing']}")
-        print(f"✓ Recording: {status['recording']}")
-        print(f"✓ Position: {status['position_beats']} beats")
+        print(f"[OK] Playing: {status['playing']}")
+        print(f"[OK] Recording: {status['recording']}")
+        print(f"[OK] Position: {status['position_beats']} beats")
     except Exception as e:
-        print(f"✗ Error getting transport status: {e}")
+        print(f"[FAIL] Error getting transport status: {e}")
     print()
 
     # Test 7: Get mixer levels
     print("Test 7: Getting mixer levels...")
     try:
         levels = mixer_api.get_all_levels()
-        print(f"✓ Found {len(levels)} mixer tracks:")
+        print(f"[OK] Found {len(levels)} mixer tracks:")
         for track in levels[:3]:  # Show first 3
             print(f"  - {track['name']}: Vol={track['volume']:.2f}, Pan={track['pan']:.2f}")
         if len(levels) > 3:
             print(f"  ... and {len(levels) - 3} more")
     except Exception as e:
-        print(f"✗ Error getting mixer levels: {e}")
+        print(f"[FAIL] Error getting mixer levels: {e}")
     print()
 
     # Test 8: Health check
@@ -135,17 +135,17 @@ def test_connection():
     try:
         healthy = connection_manager.health_check()
         if healthy:
-            print("✓ Connection is healthy")
+            print("[OK] Connection is healthy")
         else:
-            print("✗ Connection health check failed")
+            print("[FAIL] Connection health check failed")
     except Exception as e:
-        print(f"✗ Health check error: {e}")
+        print(f"[FAIL] Health check error: {e}")
     print()
 
     # Disconnect
     print("Disconnecting...")
     connection_manager.disconnect()
-    print("✓ Disconnected")
+    print("[OK] Disconnected")
     print()
 
     print("=" * 60)

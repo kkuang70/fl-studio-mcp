@@ -7,6 +7,7 @@ Provides control over mixer tracks, levels, and routing.
 from typing import Dict, List, Any
 
 from fl_studio_mcp.core.bridge import FLStudioBridge
+from fl_studio_mcp.core.exceptions import FLStudioMCPError
 
 
 class MixerAPI:

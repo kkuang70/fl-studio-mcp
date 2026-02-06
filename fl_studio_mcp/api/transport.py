@@ -7,6 +7,7 @@ Provides control over playback, recording, and transport functions.
 from typing import Dict, Any
 
 from fl_studio_mcp.core.bridge import FLStudioBridge
+from fl_studio_mcp.core.exceptions import FLStudioMCPError
 
 
 class TransportAPI:

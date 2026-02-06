@@ -4,6 +4,21 @@
 
 ### 1. Install Python Dependencies
 
+**Using uv (recommended - 10-100x faster than pip!):**
+
+```bash
+# Install uv if you haven't already
+pip install uv
+
+# Install project dependencies
+uv sync --extra flapi
+
+# Install Flapi
+uv pip install flapi
+```
+
+**Or using pip:**
+
 ```bash
 # Install basic dependencies
 pip install fastmcp pydantic python-dotenv
@@ -20,9 +35,6 @@ pip install -e ".[flapi,dev]"
 Flapi is the bridge between Python and FL Studio.
 
 ```bash
-# Install Flapi
-pip install flapi
-
 # Run the Flapi installer
 flapi install
 ```
@@ -67,6 +79,12 @@ cp .env.example .env
 
 Run the test script to verify everything works:
 
+**With uv:**
+```bash
+uv run python scripts/test_connection.py
+```
+
+**Or directly:**
 ```bash
 python scripts/test_connection.py
 ```
@@ -99,6 +117,12 @@ Test 4: Getting project information...
 
 Once everything is configured, start the server:
 
+**With uv (recommended):**
+```bash
+uv run python -m fl_studio_mcp.fl_studio_server
+```
+
+**Or directly:**
 ```bash
 python -m fl_studio_mcp.fl_studio_server
 ```
@@ -119,6 +143,20 @@ To use this server with Claude (or another MCP client), add it to your MCP confi
 {
   "mcpServers": {
     "fl-studio": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "fl_studio_mcp.fl_studio_server"],
+      "cwd": "C:\\Users\\YourName\\Projects\\fl-studio-mcp"
+    }
+  }
+}
+```
+
+**Or without uv:**
+
+```json
+{
+  "mcpServers": {
+    "fl-studio": {
       "command": "python",
       "args": ["-m", "fl_studio_mcp.fl_studio_server"],
       "cwd": "C:\\Users\\YourName\\Projects\\fl-studio-mcp"
@@ -130,7 +168,7 @@ To use this server with Claude (or another MCP client), add it to your MCP confi
 **For command-line MCP clients:**
 
 ```bash
-python -m fl_studio_mcp.fl_studio_server
+uv run python -m fl_studio_mcp.fl_studio_server
 ```
 
 ## Example Usage
@@ -164,6 +202,13 @@ Once connected, you can use natural language to control FL Studio:
 ### "Flapi not available"
 
 **Solution:** Install Flapi:
+
+**With uv:**
+```bash
+uv pip install flapi
+```
+
+**With pip:**
 ```bash
 pip install flapi
 ```
@@ -185,9 +230,16 @@ pip install flapi
 
 ### Import Errors
 
-**Solution:** Make sure you've installed the package in development mode:
+**Solution:** Make sure you've installed the package:
+
+**With uv:**
 ```bash
-pip install -e .
+uv sync --extra flapi
+```
+
+**With pip:**
+```bash
+pip install -e ".[flapi]"
 ```
 
 ## Next Steps
@@ -208,6 +260,7 @@ pip install -e .
 - **FL Studio:** 20.7+ (21.0+ recommended)
 - **Operating System:** Windows 10+ or macOS 10.14+
 - **MIDI:** loopMIDI (Windows only, macOS automatic)
+- **uv** (recommended) or pip for package management
 
 ---
 

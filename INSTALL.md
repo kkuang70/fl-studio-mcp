@@ -3,6 +3,20 @@
 ## 🚀 Get Started in 10 Minutes
 
 ### 1. Install Dependencies (2 minutes)
+
+**Using uv (recommended - 10-100x faster!):**
+```bash
+# Install uv if you haven't already
+pip install uv
+
+# Install project dependencies
+uv sync --extra flapi
+
+# Install Flapi
+uv pip install flapi
+```
+
+**Or using pip:**
 ```bash
 pip install fastmcp pydantic python-dotenv flapi
 ```
@@ -24,11 +38,19 @@ flapi install
 
 ### 5. Test Connection (1 minute)
 ```bash
+# With uv
+uv run python scripts/test_connection.py
+
+# Or with python
 python scripts/test_connection.py
 ```
 
 ### 6. Start Server (instant)
 ```bash
+# With uv (recommended)
+uv run python -m fl_studio_mcp.fl_studio_server
+
+# Or with python
 python -m fl_studio_mcp.fl_studio_server
 ```
 
